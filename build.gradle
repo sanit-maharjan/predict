@@ -26,11 +26,10 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
-	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	compile group: 'com.auth0', name: 'auth0-spring-security-api', version: '1.0.0-rc.3'
-	compile 'com.auth0:auth0:1.5.0'
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile('org.springframework.security:spring-security-test')
+	
+	//Auth0
+	compile 'com.auth0:auth0-spring-security-api:1.0.0-rc.3'
 }

@@ -11,7 +11,7 @@ import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
 
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 public class Auth0Config extends WebSecurityConfigurerAdapter {
 
     @Value(value = "${auth0.cc.audience}")

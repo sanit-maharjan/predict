@@ -44,5 +44,5 @@ public class PredictionController {
 	public List<Prediction> getAllPredictionsByGameId(@PathVariable("gameId") String gameId) {
 		return null;
 	}
-	
+
 }
