@@ -11,7 +11,7 @@ import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
 
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 public class Auth0Config extends WebSecurityConfigurerAdapter {
 
     @Value(value = "${auth0.cc.audience}")
@@ -26,7 +26,7 @@ public class Auth0Config extends WebSecurityConfigurerAdapter {
                 .configure(http)
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/login").permitAll()
-                .antMatchers("/api/ping").permitAll()
+                .antMatchers("/predictions").permitAll()
                 .anyRequest().authenticated();
     }
 }
