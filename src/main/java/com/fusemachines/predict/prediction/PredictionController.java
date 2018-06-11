@@ -36,7 +36,7 @@ public class PredictionController {
 	}
 	
 	@PutMapping
-	public Prediction addPrediction(@RequestBody @Valid AddPredictionDto dto) {
+	public Prediction updatePrediction(@RequestBody @Valid AddPredictionDto dto) {
 		predictionService.addPrediction(dto, authUtils.getAuth0Id());
 		return null;
 	}

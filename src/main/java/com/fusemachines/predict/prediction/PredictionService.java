@@ -53,17 +53,14 @@ public class PredictionService {
 		if(game.getKickOffTime() - new Date().getTime() < 3600000)
 			throw new BadRequestException("Time for prediction for this game has passed.");
 		
-		prediction.setUserId(userId);
 		prediction.setHomeScore(dto.getHomeScore());
 		prediction.setAwayScore(dto.getAwayScore());
-		prediction.setGameId(dto.getGameId());
 		if(dto.getHomeScore() > dto.getAwayScore())
 			prediction.setResult(Result.HOME);
 		else if(dto.getAwayScore() > dto.getHomeScore())
 			prediction.setResult(Result.AWAY);
 		else 
 			prediction.setResult(Result.DRAW);
-		prediction.setRound(game.getRound());
 		return prediction;		
 	}
 }
