@@ -1,6 +1,5 @@
 package com.fusemachines.predict.game;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +14,8 @@ public class GameService {
 	private GameRepository gameRepository;
 
 	public Game addNew(Game game) {
+		if (StringUtils.isEmpty(game))
+			throw new IllegalArgumentException("game must not be empty");
 		return this.gameRepository.insert(game);
 	}
 
@@ -30,6 +31,10 @@ public class GameService {
 	}
 
 	public Optional<Game> findById(String id) {
+
+		if (StringUtils.isEmpty(id))
+			throw new IllegalArgumentException("id must not be empty");
+
 		return this.gameRepository.findById(id);
 	}
 
