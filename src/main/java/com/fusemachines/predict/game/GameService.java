@@ -30,11 +30,11 @@ public class GameService {
 		return this.gameRepository.save(game);
 	}
 
-	public Optional<Game> findBy(String id) {
+	public Game findBy(String id) {
 		if(StringUtils.isEmpty(id))
 			throw new IllegalArgumentException("id must not be empty");
 		
-		return this.gameRepository.findById(id);
+		return this.gameRepository.findById(id).get();
 	}
 
 	public List<Game> findAll() {
@@ -45,5 +45,9 @@ public class GameService {
 		if (StringUtils.isEmpty(id))
 			throw new IllegalArgumentException("id must not be empty");
 		this.gameRepository.deleteById(id);
+	}
+
+	public Game updateGameScore(String id) {
+		
 	}
 }

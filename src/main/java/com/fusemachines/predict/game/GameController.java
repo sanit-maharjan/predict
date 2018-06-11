@@ -31,7 +31,7 @@ public class GameController {
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Game> findBy(@PathVariable("id") String id) {
+	public Game findBy(@PathVariable("id") String id) {
 		return this.gameService.findBy(id);
 	}
 
@@ -43,5 +43,10 @@ public class GameController {
 	@DeleteMapping("/{id}")
 	public void removeBy(@PathVariable("id") String id) {
 		this.gameService.removeBy(id);
+	}
+	
+	@PutMapping("/{id}/score")
+	public Game updateGameScore(@PathVariable("id") String id) {
+		return this.gameService.updateGameScore(id);
 	}
 }
