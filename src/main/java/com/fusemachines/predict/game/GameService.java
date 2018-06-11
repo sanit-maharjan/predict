@@ -1,20 +1,24 @@
 package com.fusemachines.predict.game;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import com.fusemachines.predict.game.dto.GameScoreDto;
+import com.fusemachines.predict.prediction.PredictionService;
 
 @Service
 public class GameService {
 
 	@Autowired
 	private GameRepository gameRepository;
+	@Autowired
+	private PredictionService predictionService;
 
 	public Game addNew(Game game) {
-		if(StringUtils.isEmpty(game))
+		if (StringUtils.isEmpty(game))
 			throw new IllegalArgumentException("game must not be empty");
 		return this.gameRepository.insert(game);
 	}
@@ -30,10 +34,10 @@ public class GameService {
 		return this.gameRepository.save(game);
 	}
 
-	public Game findBy(String id) {
-		if(StringUtils.isEmpty(id))
+	public Game findById(String id) {
+		if (StringUtils.isEmpty(id))
 			throw new IllegalArgumentException("id must not be empty");
-		
+
 		return this.gameRepository.findById(id).get();
 	}
 
@@ -47,7 +51,23 @@ public class GameService {
 		this.gameRepository.deleteById(id);
 	}
 
-	public Game updateGameScore(String id) {
+	public Game updateGameScore(GameScoreDto gameScoreDto) {
+		if (StringUtils.isEmpty(gameScoreDto.getId()))
+			throw new IllegalArgumentException("id must not be empty");
+		Game game = this.gameRepository.findById(gameScoreDto.getId()).get();
 		
+		if(gameScoreDto.getHomeScore() > gameScoreDto.getAwayScore()) {
+			game.setResult(Result.HOME);
+		} else if(gameScoreDto.getHomeScore() < gameScoreDto.getAwayScore()) {
+			game.setResult(Result.AWAY);
+		} else {
+			game.setResult(Result.DRAW);
+		}
+		
+		game = this.gameRepository.save(game);
+
+		this.predictionService.calculatePrediction(game);
+		
+		return game;
 	}
 }
