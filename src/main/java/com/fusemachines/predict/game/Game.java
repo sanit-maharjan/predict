@@ -18,13 +18,17 @@ public class Game implements Serializable {
 	private Country home;
 	private Country away;
 	private int homeScore;
-	private int awayScoure;
+	private int awayScore;
 	private long kickOffTime;
 	private Result result;
 
 	@Id
 	public String getId() {
 		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public Round getRound() {
@@ -59,12 +63,12 @@ public class Game implements Serializable {
 		this.homeScore = homeScore;
 	}
 
-	public int getAwayScoure() {
-		return awayScoure;
+	public int getAwayScore() {
+		return awayScore;
 	}
 
-	public void setAwayScoure(int awayScoure) {
-		this.awayScoure = awayScoure;
+	public void setAwayScore(int awayScoure) {
+		this.awayScore = awayScoure;
 	}
 
 	public long getKickOffTime() {
