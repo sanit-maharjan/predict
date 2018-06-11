@@ -27,6 +27,10 @@ public class Game implements Serializable {
 		return id;
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public Round getRound() {
 		return round;
 	}
