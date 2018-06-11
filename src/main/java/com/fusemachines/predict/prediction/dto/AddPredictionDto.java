@@ -7,7 +7,7 @@ public class AddPredictionDto {
 	private int homeScore;
 	@Pattern(regexp = "[\\s]*[0-9]*[1-9]+", message = "Away score is not valid")
 	private int awayScore;
-	private int gameId;
+	private String gameId;
 
 	public int getHomeScore() {
 		return homeScore;
@@ -25,11 +25,11 @@ public class AddPredictionDto {
 		this.awayScore = away;
 	}
 
-	public int getGameId() {
+	public String getGameId() {
 		return gameId;
 	}
 
-	public void setGameId(int gameId) {
+	public void setGameId(String gameId) {
 		this.gameId = gameId;
 	}
 
