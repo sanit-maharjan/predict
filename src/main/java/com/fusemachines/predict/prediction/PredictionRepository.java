@@ -10,4 +10,6 @@ public interface PredictionRepository extends MongoRepository<Prediction, String
 
 	Prediction findByGameIdAndUserId(String gameId, String userId);
 
+	List<Prediction> findByGameId(String gameId);
+
 }

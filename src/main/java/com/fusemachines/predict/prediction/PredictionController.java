@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,18 +27,22 @@ public class PredictionController {
 	
 	@PostMapping
 	public Prediction addPrediction(@RequestBody @Valid AddPredictionDto dto) {
-		predictionService.addPrediction(dto, authUtils.getAuth0Id());
-		return null;
+		return predictionService.addPrediction(dto, authUtils.getAuth0Id());
 	}
 		
 	@GetMapping
-	public List<Prediction> getAllPredictionsByUserId() {
+	public List<Prediction> getAllPredictions() {
 		return predictionService.getAllPredictionsByUserId(authUtils.getAuth0Id());
 	}
 	
 	@PutMapping
 	public Prediction updatePrediction(@RequestBody @Valid AddPredictionDto dto) {
-		predictionService.addPrediction(dto, authUtils.getAuth0Id());
+		return predictionService.addPrediction(dto, authUtils.getAuth0Id());
+	}
+	
+	@GetMapping("game/{gameId}")
+	public List<Prediction> getAllPredictionsByGameId(@PathVariable("gameId") String gameId) {
 		return null;
 	}
+	
 }

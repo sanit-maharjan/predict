@@ -32,7 +32,7 @@ public class GameController {
 
 	@GetMapping("/{id}")
 	public Optional<Game> findBy(@PathVariable("id") String id) {
-		return this.gameService.findBy(id);
+		return this.gameService.findById(id);
 	}
 
 	@GetMapping

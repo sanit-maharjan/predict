@@ -26,7 +26,7 @@ public class Auth0Config extends WebSecurityConfigurerAdapter {
                 .configure(http)
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/login").permitAll()
-                .antMatchers("/predictions").permitAll()
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated();
     }
 }

@@ -1,5 +1,6 @@
 package com.fusemachines.predict.prediction;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class PredictionService {
 		else 
 			prediction.setResult(Result.DRAW);
 		prediction.setRound(game.getRound());
-		return prediction;		
+		return predictionRepository.save(prediction);		
 	}
 	
 	public List<Prediction> getAllPredictionsByUserId(String userId) {
@@ -61,6 +62,13 @@ public class PredictionService {
 			prediction.setResult(Result.AWAY);
 		else 
 			prediction.setResult(Result.DRAW);
-		return prediction;		
+		return predictionRepository.save(prediction);		
 	}
-}
+	
+	public List<Prediction> getAllPredictionsByGameId(String gameId) {
+		Game game = gameService.findById(gameId).get();
+		if(game.getKickOffTime() - new Date().getTime() > 3600000)
+			return new ArrayList<>();
+		return predictionRepository.findByGameId(gameId);
+	}
+ }
