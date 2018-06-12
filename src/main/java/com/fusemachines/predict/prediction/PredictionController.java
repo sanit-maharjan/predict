@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fusemachines.predict.config.AuthUtils;
 import com.fusemachines.predict.prediction.dto.AddPredictionDto;
-import com.fusemachines.predict.prediction.dto.ScoreDto;
+import com.fusemachines.predict.prediction.dto.PointDto;
 
 @RestController
 @RequestMapping("/predictions")
@@ -46,9 +46,9 @@ public class PredictionController {
 		return null;
 	}
 	
-	@GetMapping("/score")
-	public List<ScoreDto> getAllScores() {
-		return predictionService.getAllScores();
+	@GetMapping("/points")
+	public List<PointDto> getAllPoints() {
+		return predictionService.getAllPoints();
 	}
 
 }

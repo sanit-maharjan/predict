@@ -8,13 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.auth0.json.mgmt.users.User;
+import com.fusemachines.predict.auth0.Auth0Service;
 import com.fusemachines.predict.exception.BadRequestException;
 import com.fusemachines.predict.game.Game;
 import com.fusemachines.predict.game.GameService;
 import com.fusemachines.predict.game.Result;
 import com.fusemachines.predict.game.Round;
 import com.fusemachines.predict.prediction.dto.AddPredictionDto;
-import com.fusemachines.predict.prediction.dto.ScoreDto;
+import com.fusemachines.predict.prediction.dto.PointDto;
 
 @Service
 public class PredictionService {
@@ -182,11 +184,25 @@ public class PredictionService {
 		return 0;
 	}
 	
-	public List<ScoreDto> getAllScores() {
-		List<Prediction> predictions = predictionRepository.findAll();
-		
-		return null;
-		
-		
+	public List<PointDto> getAllPoints() {
+		List<User> users = Auth0Service.getAllUsers();
+
+		List<PointDto> points = new ArrayList<>();
+		for (User user : users) {
+			List<Prediction> predictions = predictionRepository.findByUserId(user.getId());
+
+			int point = 0;
+			for (Prediction prediction : predictions) {
+				point += prediction.getPoint();
+			}
+			
+			PointDto pointDto = PointDto.builder()
+					.userName(user.getName())
+					.point(point).build();
+
+			points.add(pointDto);
+		}
+
+		return points;
 	}
  }
