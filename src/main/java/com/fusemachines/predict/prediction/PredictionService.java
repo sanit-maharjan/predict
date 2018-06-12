@@ -202,6 +202,7 @@ public class PredictionService {
 			}
 			
 			PointDto pointDto = PointDto.builder()
+					.userId(user.getId())
 					.username(user.getName())
 					.point(point).build();
 
