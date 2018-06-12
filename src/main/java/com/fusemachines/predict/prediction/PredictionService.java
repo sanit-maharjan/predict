@@ -184,12 +184,17 @@ public class PredictionService {
 		return 0;
 	}
 	
-	public List<PointDto> getAllPoints() {
+	public List<PointDto> getAllPoints(Round round) {
 		List<User> users = Auth0Service.getAllUsers();
-
+		
 		List<PointDto> points = new ArrayList<>();
 		for (User user : users) {
-			List<Prediction> predictions = predictionRepository.findByUserId(user.getId());
+			List<Prediction> predictions = new ArrayList<>();
+			
+			if (round == null)
+				predictions = predictionRepository.findByUserId(user.getId());
+			else
+				predictions = predictionRepository.findByRoundAndUserId(round, user.getId());
 
 			int point = 0;
 			for (Prediction prediction : predictions) {
@@ -197,7 +202,7 @@ public class PredictionService {
 			}
 			
 			PointDto pointDto = PointDto.builder()
-					.userName(user.getName())
+					.username(user.getName())
 					.point(point).build();
 
 			points.add(pointDto);
