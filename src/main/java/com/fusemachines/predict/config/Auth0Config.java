@@ -16,9 +16,9 @@ import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class Auth0Config extends WebSecurityConfigurerAdapter {
 
-    @Value(value = "${auth0.cc.audience}")
+    @Value(value = "${auth0.audience}")
     private String apiAudience;
-    @Value(value = "${auth0.cc.issuer}")
+    @Value(value = "${auth0.issuer}")
     private String issuer;
 
     @Override

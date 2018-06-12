@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fusemachines.predict.config.AuthUtils;
+import com.fusemachines.predict.game.Round;
 import com.fusemachines.predict.prediction.dto.AddPredictionDto;
+import com.fusemachines.predict.prediction.dto.PointDto;
 
 @RestController
 @RequestMapping("/predictions")
@@ -49,6 +52,11 @@ public class PredictionController {
 	@GetMapping("test")
 	public void test() {
 		System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+	}
+	
+	@GetMapping("/points")
+	public List<PointDto> getAllPoints(@RequestParam(value = "round", required = false) Round round) {
+		return predictionService.getAllPoints(round);
 	}
 
 }
