@@ -1,19 +1,22 @@
 package com.fusemachines.predict.prediction.dto;
 
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 
 public class AddPredictionDto {
-	@Pattern(regexp = "[\\s]*[0-9]*[1-9]+", message = "Home score is not valid")
-	private int homeScore;
-	@Pattern(regexp = "[\\s]*[0-9]*[1-9]+", message = "Away score is not valid")
-	private int awayScore;
+	@Digits(integer=3, fraction=0, message = "Score is invalid.")
+	@Min(value = 0, message = "Score is invalid.")
+	private Integer homeScore;
+	@Digits(integer=3, fraction=0, message = "Score is invalid.")
+	@Min(value = 0, message = "Score is invalid.")
+	private Integer awayScore;
 	private String gameId;
 
 	public int getHomeScore() {
 		return homeScore;
 	}
 
-	public void setHomeScore(int home) {
+	public void setHomeScore(Integer home) {
 		this.homeScore = home;
 	}
 
@@ -21,7 +24,7 @@ public class AddPredictionDto {
 		return awayScore;
 	}
 
-	public void setAwayScore(int away) {
+	public void setAwayScore(Integer away) {
 		this.awayScore = away;
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +43,12 @@ public class PredictionController {
 	
 	@GetMapping("game/{gameId}")
 	public List<Prediction> getAllPredictionsByGameId(@PathVariable("gameId") String gameId) {
-		return null;
+		return predictionService.getAllPredictionsByGameId(gameId);
+	}
+	
+	@GetMapping("test")
+	public void test() {
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 	}
 
 }

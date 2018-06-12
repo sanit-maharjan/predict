@@ -46,17 +46,5 @@ public class GlobalExceptionHandler /*extends ResponseEntityExceptionHandler*/ {
 		return new ResponseEntity<Object>(map, HttpStatus.BAD_REQUEST);
 	}
 	
-//	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-//			HttpHeaders headers, HttpStatus status, WebRequest request) {
-//
-//		return handleExceptionInternal(ex, null, headers, status, request);
-//	}
-	
-//	@ExceptionHandler(FuseAuthenticationException.class)
-//	public ResponseEntity<Map<String, String>> handleRuleVoilationException(FuseAuthenticationException ex,
-//			HttpServletRequest request, HttpServletResponse response) throws IOException {
-//		Map<String, String> map = new HashMap<>();
-//		map.put("error", ex.getMessage());
-//		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);													
-//	}
+
 }
