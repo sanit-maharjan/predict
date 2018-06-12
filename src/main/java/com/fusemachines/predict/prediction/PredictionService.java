@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.fusemachines.predict.exception.BadRequestException;
@@ -17,26 +18,40 @@ import com.fusemachines.predict.prediction.dto.AddPredictionDto;
 @Service
 public class PredictionService {
 	
-	private int G1_SCORE = 4;
-	private int G1_RESULT = 1;
+	@Value(value = "${score.g1}")
+	private int G1_SCORE;
+	@Value(value = "${result.g1}")
+	private int G1_RESULT;
 	
-	private int G2_SCORE = 4;
-	private int G2_RESULT = 1;
+	@Value(value = "${score.g2}")
+	private int G2_SCORE;
+	@Value(value = "${result.g2}")
+	private int G2_RESULT;
 	
-	private int G3_SCORE = 4;
-	private int G3_RESULT = 1;
+	@Value(value = "${score.g3}")
+	private int G3_SCORE;
+	@Value(value = "${result.g3}")
+	private int G3_RESULT;
 	
-	private int PQF_SCORE = 5;
-	private int PQF_RESULT = 2;
+	@Value(value = "${score.pqf}")
+	private int PQF_SCORE;
+	@Value(value = "${result.pqf}")
+	private int PQF_RESULT;
 	
-	private int QF_SCORE = 6;
-	private int QF_RESULT = 3;
+	@Value(value = "${score.qf}")
+	private int QF_SCORE;
+	@Value(value = "${result.qf}")
+	private int QF_RESULT;
 	
-	private int SF_SCORE = 7;
-	private int SF_RESULT = 5;
+	@Value(value = "${score.sf}")
+	private int SF_SCORE;
+	@Value(value = "${result.sf}")
+	private int SF_RESULT;
 	
-	private int F_SCORE = 10;
-	private int F_RESULT = 5;
+	@Value(value = "${score.f}")
+	private int F_SCORE;
+	@Value(value = "${result.f}")
+	private int F_RESULT;
 
 	@Autowired
 	private PredictionRepository predictionRepository;
