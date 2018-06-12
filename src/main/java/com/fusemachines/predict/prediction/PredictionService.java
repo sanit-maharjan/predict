@@ -13,6 +13,7 @@ import com.fusemachines.predict.game.GameService;
 import com.fusemachines.predict.game.Result;
 import com.fusemachines.predict.game.Round;
 import com.fusemachines.predict.prediction.dto.AddPredictionDto;
+import com.fusemachines.predict.prediction.dto.ScoreDto;
 
 @Service
 public class PredictionService {
@@ -164,5 +165,13 @@ public class PredictionService {
 			
 		}
 		return 0;
+	}
+	
+	public List<ScoreDto> getAllScores() {
+		List<Prediction> predictions = predictionRepository.findAll();
+		
+		return null;
+		
+		
 	}
  }
