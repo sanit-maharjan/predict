@@ -1,9 +1,9 @@
 package com.fusemachines.predict.game;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,11 +23,13 @@ public class GameController {
 	private GameService gameService;
 
 	@PostMapping
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public Game addNew(@RequestBody Game game) {
 		return this.gameService.addNew(game);
 	}
 
 	@PutMapping("/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public Game update(@RequestBody Game game, @PathVariable("id") String id) {
 		return this.gameService.update(game, id);
 	}
@@ -43,11 +45,13 @@ public class GameController {
 	}
 	
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public void removeBy(@PathVariable("id") String id) {
 		this.gameService.removeBy(id);
 	}
 	
 	@PutMapping("/score")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public Game updateGameScore(@RequestBody GameScoreDto gameScoreDto) {
 		return this.gameService.updateGameScore(gameScoreDto);
 	}
