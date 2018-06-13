@@ -25,4 +25,13 @@ public class UserService {
 		
 		return userDtos;
 	}
+
+	public UserDto getUser(String userId) {
+		User user = Auth0Service.getUser(userId);
+		UserDto userDto = new UserDto();
+		
+		CustomBeanUtils.copyProperties(user, userDto);
+		
+		return userDto;
+	}
 }

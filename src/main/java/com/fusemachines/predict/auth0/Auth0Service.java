@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 
 import com.auth0.client.mgmt.ManagementAPI;
 import com.auth0.exception.Auth0Exception;
+import com.auth0.json.auth.UserInfo;
 import com.auth0.json.mgmt.users.User;
 import com.auth0.json.mgmt.users.UsersPage;
 import com.auth0.net.Request;
@@ -109,6 +110,16 @@ public class Auth0Service {
 		return usersPage.getItems();
 	}
 	
-	
+	public static User getUser(String userId) {
+		Request<User> request = getManagementAPI().users().get(userId, null);
+		User user = new User();
+		try {
+			user = request.execute();
+		} catch (Auth0Exception exception) {
+			logger.info("Exception occured while updating auth0 user. Exception: {}", exception);
+		}
+		
+		return user;
+	}
 	
 }
