@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class PointDto {
+	private String userId;
 	private String username;
 	private int point;
 }
