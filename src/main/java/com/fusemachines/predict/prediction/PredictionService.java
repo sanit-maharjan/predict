@@ -201,7 +201,7 @@ public class PredictionService {
 				feePaid = (Boolean) user.getAppMetadata().get("paid");
 			}
 
-			if (feePaid != null && (feePaid == paid)) {
+			if ((feePaid == paid)) {
 				List<Prediction> predictions = new ArrayList<>();
 
 				if (round == null)
