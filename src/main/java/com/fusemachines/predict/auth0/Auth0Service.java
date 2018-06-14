@@ -1,6 +1,7 @@
 package com.fusemachines.predict.auth0;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -21,8 +22,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.auth0.client.mgmt.ManagementAPI;
+import com.auth0.client.mgmt.filter.UserFilter;
 import com.auth0.exception.Auth0Exception;
-import com.auth0.json.auth.UserInfo;
 import com.auth0.json.mgmt.users.User;
 import com.auth0.json.mgmt.users.UsersPage;
 import com.auth0.net.Request;
@@ -99,15 +100,27 @@ public class Auth0Service {
 	}
 	
 	public static List<User> getAllUsers() {
-		Request<UsersPage> request = getManagementAPI().users().list(null);
+		UserFilter filter = new UserFilter();
+		filter.withPage(0, 50);
+		Request<UsersPage> request = getManagementAPI().users().list(filter);
+		List<User> users = new ArrayList<>();
+		
 		UsersPage usersPage = null;
 		try {
 			usersPage = request.execute();
+			users.addAll(usersPage.getItems());
+			if(usersPage.getItems().size() >= 50) {
+				filter.withPage(1, 50);
+				request = getManagementAPI().users().list(filter);
+				usersPage = request.execute();
+				users.addAll(usersPage.getItems());
+			}
+				
 		} catch (Auth0Exception exception) {
 			logger.info("Exception occured while updating auth0 user. Exception: {}", exception);
 		}
 		
-		return usersPage.getItems();
+		return users;
 	}
 	
 	public static User getUser(String userId) {
