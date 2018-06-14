@@ -173,9 +173,6 @@ public class PredictionService {
 			if (game.getRound() == Round.QF)
 				return QF_SCORE;
 
-			if (game.getRound() == Round.SF)
-				return SF_SCORE;
-
 			if (game.getRound() == Round.F)
 				return F_SCORE;
 
@@ -195,9 +192,6 @@ public class PredictionService {
 
 			if (game.getRound() == Round.QF)
 				return QF_RESULT;
-
-			if (game.getRound() == Round.SF)
-				return SF_RESULT;
 
 			if (game.getRound() == Round.F)
 				return F_RESULT;
