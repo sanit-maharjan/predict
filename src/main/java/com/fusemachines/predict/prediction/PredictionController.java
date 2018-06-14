@@ -49,11 +49,6 @@ public class PredictionController {
 		return predictionService.getAllPredictionsByGameId(gameId);
 	}
 	
-	@GetMapping("test")
-	public void test() {
-		System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-	}
-	
 	@GetMapping("/points")
 	public List<PointDto> getAllPoints(@RequestParam(value = "round", required = false) Round round,
 			@RequestParam(value = "paid", required = false, defaultValue = "true") Boolean paid) {
