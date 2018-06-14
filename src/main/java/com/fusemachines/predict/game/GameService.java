@@ -56,6 +56,8 @@ public class GameService {
 			throw new IllegalArgumentException("id must not be empty");
 		Game game = this.gameRepository.findById(gameScoreDto.getId()).get();
 		
+		game.setHomeScore(gameScoreDto.getHomeScore());
+		game.setAwayScore(gameScoreDto.getAwayScore());
 		if(gameScoreDto.getHomeScore() > gameScoreDto.getAwayScore()) {
 			game.setResult(Result.HOME);
 		} else if(gameScoreDto.getHomeScore() < gameScoreDto.getAwayScore()) {

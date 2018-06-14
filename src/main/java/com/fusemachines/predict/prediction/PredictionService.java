@@ -62,6 +62,10 @@ public class PredictionService {
 	private GameService gameService;
 
 	public Prediction addPrediction(AddPredictionDto dto, String userId) {
+		Prediction existingPrediction = predictionRepository.findByGameIdAndUserId(dto.getGameId(), userId);
+		if (existingPrediction != null)
+			throw new BadRequestException("You have already predicted for this game.");
+		
 		Game game = gameService.findById(dto.getGameId());
 		if (game.getKickOffTime() - new Date().getTime() < 3600000)
 			throw new BadRequestException("Time for prediction for this game has passed.");

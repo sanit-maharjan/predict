@@ -41,7 +41,7 @@ public class PredictionController {
 	
 	@PutMapping
 	public Prediction updatePrediction(@RequestBody @Valid AddPredictionDto dto) {
-		return predictionService.addPrediction(dto, authUtils.getAuth0Id());
+		return predictionService.updatePrediction(dto, authUtils.getAuth0Id());
 	}
 	
 	@GetMapping("game/{gameId}")

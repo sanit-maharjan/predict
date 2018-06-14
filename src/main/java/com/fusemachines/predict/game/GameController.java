@@ -29,7 +29,7 @@ public class GameController {
 	}
 
 	@PutMapping("/{id}")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public Game update(@RequestBody Game game, @PathVariable("id") String id) {
 		return this.gameService.update(game, id);
 	}
@@ -45,13 +45,13 @@ public class GameController {
 	}
 	
 	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public void removeBy(@PathVariable("id") String id) {
 		this.gameService.removeBy(id);
 	}
 	
 	@PutMapping("/score")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public Game updateGameScore(@RequestBody GameScoreDto gameScoreDto) {
 		return this.gameService.updateGameScore(gameScoreDto);
 	}
