@@ -6,11 +6,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-<<<<<<< HEAD
 import java.util.Map;
-=======
 import java.util.stream.Collectors;
->>>>>>> ff06d4db94d054712bc40826c0e32a940fde2cab
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,11 +50,6 @@ public class PredictionService {
 	private int QF_SCORE;
 	@Value(value = "${result.qf}")
 	private int QF_RESULT;
-
-	@Value(value = "${score.sf}")
-	private int SF_SCORE;
-	@Value(value = "${result.sf}")
-	private int SF_RESULT;
 
 	@Value(value = "${score.f}")
 	private int F_SCORE;
