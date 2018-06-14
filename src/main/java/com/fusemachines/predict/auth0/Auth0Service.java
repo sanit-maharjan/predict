@@ -101,7 +101,7 @@ public class Auth0Service {
 	
 	public static List<User> getAllUsers() {
 		UserFilter filter = new UserFilter();
-		filter.withPage(0, 50);
+		filter.withPage(0, 100);
 		Request<UsersPage> request = getManagementAPI().users().list(filter);
 		List<User> users = new ArrayList<>();
 		
@@ -109,8 +109,8 @@ public class Auth0Service {
 		try {
 			usersPage = request.execute();
 			users.addAll(usersPage.getItems());
-			if(usersPage.getItems().size() >= 50) {
-				filter.withPage(1, 50);
+			if(usersPage.getItems().size() >= 100) {
+				filter.withPage(1, 100);
 				request = getManagementAPI().users().list(filter);
 				usersPage = request.execute();
 				users.addAll(usersPage.getItems());

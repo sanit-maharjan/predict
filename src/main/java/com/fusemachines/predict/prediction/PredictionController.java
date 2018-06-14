@@ -56,7 +56,7 @@ public class PredictionController {
 	
 	@GetMapping("/points")
 	public List<PointDto> getAllPoints(@RequestParam(value = "round", required = false) Round round,
-			@RequestParam(value = "paid", required = false) Boolean paid) {
+			@RequestParam(value = "paid", required = false, defaultValue = "true") Boolean paid) {
 		return predictionService.getAllPoints(round, paid);
 	}
 
