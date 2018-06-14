@@ -190,30 +190,38 @@ public class PredictionService {
 		return 0;
 	}
 	
-	public List<PointDto> getAllPoints(Round round) {
+	public List<PointDto> getAllPoints(Round round, Boolean paid) {
 		List<User> users = Auth0Service.getAllUsers();
 		
 		List<PointDto> points = new ArrayList<>();
 		for (User user : users) {
-			List<Prediction> predictions = new ArrayList<>();
-			
-			if (round == null)
-				predictions = predictionRepository.findByUserId(user.getId());
-			else
-				predictions = predictionRepository.findByRoundAndUserId(round, user.getId());
 
-			int point = 0;
-			for (Prediction prediction : predictions) {
-				point += prediction.getPoint();
+			Boolean feePaid = false;
+			if (user.getAppMetadata() != null) {
+				feePaid = (Boolean) user.getAppMetadata().get("paid");
 			}
-			
-			PointDto pointDto = PointDto.builder()
-					.userId(user.getId())
-					.username(user.getName())
-					.point(point)
-					.build();
 
-			points.add(pointDto);
+			if (feePaid != null && (feePaid == paid)) {
+				List<Prediction> predictions = new ArrayList<>();
+
+				if (round == null)
+					predictions = predictionRepository.findByUserId(user.getId());
+				else
+					predictions = predictionRepository.findByRoundAndUserId(round, user.getId());
+
+				int point = 0;
+				for (Prediction prediction : predictions) {
+					point += prediction.getPoint();
+				}
+
+				PointDto pointDto = PointDto.builder()
+						.userId(user.getId())
+						.username(user.getName())
+						.point(point)
+						.build();
+
+				points.add(pointDto);
+			}
 		}
 		
 		Collections.sort(points, Comparator.comparing(PointDto::getPoint).reversed());
