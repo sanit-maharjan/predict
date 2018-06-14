@@ -25,7 +25,7 @@ public class UserController {
 		return userService.getAllUsers();
 	}
 	
-	@GetMapping("/user")
+	@GetMapping("/my")
 	public UserDto getCurrentUser() {
 		return userService.getUser(authUtils.getAuth0Id());
 	}
