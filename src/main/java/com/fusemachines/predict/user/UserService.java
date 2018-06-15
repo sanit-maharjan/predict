@@ -26,11 +26,13 @@ public class UserService {
 		return userDtos;
 	}
 
+	@SuppressWarnings("unchecked")
 	public UserDto getUser(String userId) {
 		User user = Auth0Service.getUser(userId);
 		UserDto userDto = new UserDto();
 		
 		CustomBeanUtils.copyProperties(user, userDto);
+		userDto.setRole((List<String>) user.getAppMetadata().get("roles"));
 		
 		return userDto;
 	}
