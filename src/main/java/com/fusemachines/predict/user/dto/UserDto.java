@@ -1,5 +1,7 @@
 package com.fusemachines.predict.user.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
@@ -11,4 +13,5 @@ public class UserDto {
 	private String email;
 	@JsonProperty("imageUrl")
     private String picture;
+	private List<String> role;
 }
