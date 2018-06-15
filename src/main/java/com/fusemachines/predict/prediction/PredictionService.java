@@ -2,7 +2,9 @@ package com.fusemachines.predict.prediction;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -112,9 +114,18 @@ public class PredictionService {
 	
 	public List<Prediction> getAllPredictionsByGameId(String gameId) {
 		Game game = gameService.findById(gameId);
+		List<User> users = Auth0Service.getAllUsers();
+		Map<String, User> userMap = new HashMap<>();
+		users.forEach(user -> {
+			userMap.put(user.getId(), user);
+		});
+		
 		if(game.getKickOffTime() - new Date().getTime() > 3600000)
 			return new ArrayList<>();
-		return predictionRepository.findByGameId(gameId);
+		
+		List<Prediction> predictions = predictionRepository.findByGameId(gameId);
+		predictions.forEach(prediction -> prediction.setUsername(userMap.get(prediction.getUserId()).getName()));
+		return predictions;
 
 	}
 	

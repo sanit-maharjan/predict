@@ -22,6 +22,7 @@ public class Prediction implements Serializable {
 	private String id;
 	private String gameId;
 	private String userId;
+	private String username;
 	private int homeScore;
 	private int awayScore;
 	private Result result;
@@ -107,6 +108,14 @@ public class Prediction implements Serializable {
 
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

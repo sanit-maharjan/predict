@@ -51,12 +51,13 @@ public class PredictionController {
 	
 	@GetMapping("test")
 	public void test() {
-		System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 	}
 	
 	@GetMapping("/points")
 	public List<PointDto> getAllPoints(@RequestParam(value = "round", required = false) Round round) {
 		return predictionService.getAllPoints(round);
 	}
+
 
 }
