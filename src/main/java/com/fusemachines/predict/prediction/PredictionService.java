@@ -195,11 +195,11 @@ public class PredictionService {
 		List<User> users = Auth0Service.getAllUsers();
 
 		if (!paid) {
-			users = users.stream().filter(u -> u.getAppMetadata().get("paid") != null && !(boolean)u.getAppMetadata().get("paid")).collect(Collectors.toList());
-		}
-		
-		if(paid) {
-			users = users.stream().filter(u -> u.getAppMetadata().get("paid") == null).collect(Collectors.toList());
+			users = users.stream().filter(u -> u.getAppMetadata() != null && u.getAppMetadata().get("paid") != null && !(boolean)u.getAppMetadata().get("paid"))
+					.collect(Collectors.toList());
+		} else {
+			users = users.stream().filter(u -> u.getAppMetadata() != null && u.getAppMetadata().get("paid") == null)
+					.collect(Collectors.toList());
 		}
 
 		List<PointDto> points = new ArrayList<>();
