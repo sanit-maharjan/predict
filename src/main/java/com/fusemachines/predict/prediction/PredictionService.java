@@ -21,6 +21,7 @@ import com.fusemachines.predict.game.Result;
 import com.fusemachines.predict.game.Round;
 import com.fusemachines.predict.prediction.dto.AddPredictionDto;
 import com.fusemachines.predict.prediction.dto.PointDto;
+import com.fusemachines.predict.prediction.dto.UserPredictionDto;
 import com.fusemachines.predict.user.UserService;
 import com.fusemachines.predict.user.dto.UserDto;
 
@@ -238,7 +239,7 @@ public class PredictionService {
 	}
 
 	public String convertPredictionsToCsv(String gameId) {
-		List<Prediction> predictions = predictionRepository.findByGameId(gameId);
+		List<Prediction> predictions = findByGameId(gameId);
 
 		Map<String, UserDto> usersMap = userService.getUsersMap();
 
@@ -251,5 +252,32 @@ public class PredictionService {
 		}
 
 		return record.toString();
+	}
+
+	public List<UserPredictionDto> getAllUserPredictions(String userId) {
+		List<Prediction> predictions = findByUserId(userId);
+		
+		List<UserPredictionDto> userPredictions = new ArrayList<>();
+		for (Prediction prediction : predictions) {
+			UserPredictionDto userPrediction = UserPredictionDto.builder()
+					.userId(prediction.getUserId())
+					.gameId(prediction.getGameId())
+					.round(prediction.getRound())
+					.homeScore(prediction.getHomeScore())
+					.awayScore(prediction.getAwayScore())
+					.build();
+			
+			userPredictions.add(userPrediction);
+		}
+		
+		return userPredictions;
+	}
+	
+	public List<Prediction> findByGameId(String gameId) {
+		return predictionRepository.findByGameId(gameId);
+	}
+	
+	public List<Prediction> findByUserId(String userId) {
+		return predictionRepository.findByUserId(userId);
 	}
 }

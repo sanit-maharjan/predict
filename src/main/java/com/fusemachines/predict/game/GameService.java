@@ -1,6 +1,8 @@
 package com.fusemachines.predict.game;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,5 +73,18 @@ public class GameService {
 		this.predictionService.calculatePrediction(game);
 		
 		return game;
+	}
+	
+	
+	public Map<String, Game> getGamesMap() {
+		List<Game> games = findAll();
+		
+		Map<String, Game> gamesMap = new HashMap<>();
+		
+		for (Game game : games) {
+			gamesMap.put(game.getId(), game);
+		}
+		
+		return gamesMap;
 	}
 }
