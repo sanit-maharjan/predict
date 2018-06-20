@@ -42,4 +42,8 @@ dependencies {
 	
 	// Project Lombok
 	compile group: 'org.projectlombok', name: 'lombok', version: '1.16.22'
+	
+	// Apache Commons CSV
+	compile group: 'org.apache.commons', name: 'commons-csv', version: '1.5'
+	
 }

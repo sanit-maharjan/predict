@@ -2,6 +2,7 @@ package com.fusemachines.predict.prediction;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,11 @@ public class PredictionController {
 			@RequestParam(value = "paid", required = false, defaultValue = "true") Boolean paid) {
 		return predictionService.getAllPoints(round, paid);
 	}
+	
+	@GetMapping("/game/{gameId}/download")
+	public String downloadPredictions(@PathVariable String gameId, HttpServletResponse response) {
+		return predictionService.convertPredictionsToCsv(gameId);
+	}
+	
 
 }

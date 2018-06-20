@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import com.fusemachines.predict.game.Result;
 import com.fusemachines.predict.game.Round;
 import com.fusemachines.predict.prediction.dto.AddPredictionDto;
 import com.fusemachines.predict.prediction.dto.PointDto;
+import com.fusemachines.predict.user.UserService;
+import com.fusemachines.predict.user.dto.UserDto;
 
 @Service
 public class PredictionService {
@@ -61,9 +64,13 @@ public class PredictionService {
 
 	@Autowired
 	private PredictionRepository predictionRepository;
+	
 	@Autowired
 	private GameService gameService;
 
+	@Autowired
+	private UserService userService;
+	
 	public Prediction addPrediction(AddPredictionDto dto, String userId) {
 		Prediction existingPrediction = predictionRepository.findByGameIdAndUserId(dto.getGameId(), userId);
 		if (existingPrediction != null)
@@ -228,5 +235,21 @@ public class PredictionService {
 		Collections.sort(points, Comparator.comparing(PointDto::getPoint).reversed());
 
 		return points;
+	}
+
+	public String convertPredictionsToCsv(String gameId) {
+		List<Prediction> predictions = predictionRepository.findByGameId(gameId);
+
+		Map<String, UserDto> usersMap = userService.getUsersMap();
+
+		StringBuilder record = new StringBuilder();
+		record.append("Name,Prediction\n");
+		
+		for (Prediction prediction : predictions) {
+			String score = prediction.getHomeScore() + " - " + prediction.getAwayScore();
+			record.append(usersMap.get(prediction.getUserId()).getName()).append(",").append(score).append("\n");
+		}
+
+		return record.toString();
 	}
 }
