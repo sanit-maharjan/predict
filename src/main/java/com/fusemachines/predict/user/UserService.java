@@ -1,7 +1,9 @@
 package com.fusemachines.predict.user;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -35,5 +37,16 @@ public class UserService {
 		userDto.setRole((List<String>) user.getAppMetadata().get("roles"));
 		
 		return userDto;
+	}
+	
+	public Map<String, UserDto> getUsersMap() {
+		List<UserDto> users = getAllUsers();
+		Map<String, UserDto> usersMap = new HashMap<>();
+		
+		for (UserDto user : users) {
+			usersMap.put(user.getId(), user);
+		}
+		
+		return usersMap;
 	}
 }

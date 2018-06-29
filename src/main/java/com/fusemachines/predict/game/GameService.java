@@ -1,8 +1,13 @@
 package com.fusemachines.predict.game;
 
+import java.awt.print.Pageable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -42,7 +47,7 @@ public class GameService {
 	}
 
 	public List<Game> findAll() {
-		return this.gameRepository.findAll();
+		return this.gameRepository.findAll(new Sort(Sort.Direction.ASC, "kickOffTime"));
 	}
 
 	public void removeBy(String id) {
@@ -71,5 +76,18 @@ public class GameService {
 		this.predictionService.calculatePrediction(game);
 		
 		return game;
+	}
+	
+	
+	public Map<String, Game> getGamesMap() {
+		List<Game> games = findAll();
+		
+		Map<String, Game> gamesMap = new HashMap<>();
+		
+		for (Game game : games) {
+			gamesMap.put(game.getId(), game);
+		}
+		
+		return gamesMap;
 	}
 }

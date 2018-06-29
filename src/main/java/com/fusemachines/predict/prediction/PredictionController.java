@@ -2,6 +2,7 @@ package com.fusemachines.predict.prediction;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.fusemachines.predict.config.AuthUtils;
 import com.fusemachines.predict.game.Round;
 import com.fusemachines.predict.prediction.dto.AddPredictionDto;
 import com.fusemachines.predict.prediction.dto.PointDto;
+import com.fusemachines.predict.prediction.dto.UserPredictionDto;
 
 @RestController
 @RequestMapping("/predictions")
@@ -53,6 +55,16 @@ public class PredictionController {
 	public List<PointDto> getAllPoints(@RequestParam(value = "round", required = false) Round round,
 			@RequestParam(value = "paid", required = false, defaultValue = "true") Boolean paid) {
 		return predictionService.getAllPoints(round, paid);
+	}
+	
+	@GetMapping("/game/{gameId}/download")
+	public String downloadPredictions(@PathVariable String gameId, HttpServletResponse response) {
+		return predictionService.convertPredictionsToCsv(gameId);
+	}
+	
+	@GetMapping("/user/{userId}")
+	public List<UserPredictionDto> getAllUserPredictions(@PathVariable String userId) {
+		return predictionService.getAllUserPredictions(userId);
 	}
 
 
