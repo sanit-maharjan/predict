@@ -125,9 +125,9 @@ public class PredictionService {
 			userMap.put(user.getId(), user);
 		});
 		
-		if(game.getKickOffTime() - new Date().getTime() > 3600000)
-
-			return new ArrayList<>();
+//		if(game.getKickOffTime() - new Date().getTime() > 3600000)
+//
+//			return new ArrayList<>();
 		
 		List<Prediction> predictions = predictionRepository.findByGameId(gameId);
 		predictions.forEach(prediction -> prediction.setUsername(userMap.get(prediction.getUserId()).getName()));
